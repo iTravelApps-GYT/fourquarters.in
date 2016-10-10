@@ -1,0 +1,252 @@
+﻿@model FourQuarterMVC.Models.FourQuaterClass
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Four Quarter admin panel</title>
+
+<link type="text/css" rel="stylesheet" href="~/css/demo.css">
+<link type="text/css" rel="stylesheet" href="~/css/jquery-te-1.4.0.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
+<!--    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" /> -->
+    
+     
+     <!-- <script src="~/Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>   -->
+    
+    
+
+    
+@*    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/adapters/jquery.js"></script>*@
+    <link href="~/ckeditor/samples/sample.css" rel="stylesheet">
+    <link href="~/css/visiter.css" type="text/css" rel="stylesheet">
+    <style>
+         #result
+{
+	font-size: 24px;
+	color:maroon;
+}
+        #editable
+        {
+            padding: 10px;
+            float: left;
+        }
+        th {
+    background-color: green;
+    color: white;
+}
+         TextArea
+        {
+            width: 1000px;
+            height: 100px;
+        }
+    </style>
+
+</head>
+<body>
+    <h2>Welcome to the Digital Section</h2>
+    @using (Html.BeginForm("DDDigital", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    { 
+        <div class="Menuu">
+        <ul>
+            <li><a href="@Href("~/Admin/Home")">Home</a></li>
+            <li><a href="~/Admin/InsertDesignThink">Design & Think</a></li>
+            <li><a href="~/Admin/FilePrintImages">Film & Images</a></li>
+            <li><a href="~/Admin/DDDigital">Digital</a></li>
+            <li><a href="~/Admin/SpeakMaster">Speak & Contact</a></li>
+            <li><a href="~/Admin/CleintMaster">Client Master</a></li>
+            <li><a href="~/Admin/ThinkerBody">Thinker Body</a></li>
+            <li><a href="~/Admin/SubscriberMailZone">MailZone</a></li>
+        </ul>
+    </div>
+        <br /><br />
+        <hr color="red"/><h2>Master Panel</h2><hr color="red"/>
+        <label id="result">@ViewBag.Message</label>
+                <table width="100%" border="0">
+            <tr>
+                <td width="200">Digital Title</td>
+                <td>@Html.TextBoxFor(M => M.objMaster.DigitalTitle, new { @maxlength="150", @style="width:600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td width="200">Digital Heading</td>
+                <td>@Html.TextBoxFor(M => M.objMaster.DigitalHeading, new { @maxlength="300", @style="width:600px;" })
+                </td>
+            </tr>
+             <tr>
+                <td width="200">Digital Description</td>
+                <td>@Html.TextBoxFor(M => M.objMaster.DigitalDesc, new { @maxlength="300", @style="width:600px;" })
+                </td>
+            </tr>
+                     <tr>
+                <td  width="200">Add Image</td><td><input id="upload1" name="upload1" type="file" /></td>
+            </tr>
+            <tr>
+                <td  width="200">Add New Heaqding 1</td><td>@Html.TextBoxFor(M => M.objMaster.Head1, new { @maxlength="150", @style="width:600px;" })</td> 
+            </tr>
+            <tr>
+                <td  width="200">Add New Heading 2</td><td>@Html.TextBoxFor(M => M.objMaster.Head2, new { @maxlength="150", @style="width:600px;" })</td> 
+            </tr>
+            <tr>
+                <td  width="200">Add New Heading 3</td><td>@Html.TextBoxFor(M => M.objMaster.Head3, new { @maxlength="150", @style="width:600px;" })</td> 
+            </tr>
+            <tr>
+                <td colspan="2" align="center">Write Below To Create Description 1</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">@Html.TextAreaFor(M => M.objMaster.Desc1, new { @maxlength="1500" })
+                    <br />
+                    <img src="~/img/Message1.png" border="0" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">Write Below To Create Description 2</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">@Html.TextAreaFor(M => M.objMaster.Desc2, new { @maxlength="1500" })
+                    <br />
+                    <img src="~/img/Message1.png" border="0" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">Write Below To Create Description 3</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">@Html.TextAreaFor(M => M.objMaster.Desc3, new { @maxlength="1500" })
+                    <br />
+                    <img src="~/img/Message1.png" border="0" />
+                </td>
+            </tr>
+        </table>
+        <hr color="red"/><h2>Digital Panel</h2><hr color="red"/>
+        <table width="100%" border="0">
+            <tr>
+                <td width="200">Add New Item in DropDown Value</td>
+                <td>@Html.TextBoxFor(M => M.objDigital.DDlValue, new { @maxlength="15" })
+                </td>
+            </tr>
+            <tr>
+                <td  width="200">Add Pdf File</td><td><input id="upload1" name="upload1" type="file" /></td>
+            </tr>
+            @* <tr>
+                <td colspan="2" align="center">Write Below To Create Popup Body</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">@Html.TextAreaFor(M => M.objDigital.PopupBody)
+                </td>
+            </tr>*@
+            <tr>
+                <td colspan="2">
+                    <input id="Submit1" type="submit" value="Save Home data" />
+                </td>
+            </tr>
+        </table>
+        <div id="divDigitalTable">
+         <table width="100%" id="tblData" border="1">
+            <tr>
+                <th>Drop Down Value</th>
+                <th>Popup Body</th>
+                <th>Action</th>
+            </tr>
+               @foreach (FourQuarterMVC.Models.Digital obj in Model.objListDigitalM)
+               {
+                <tr>
+                    <td>
+                        <input type="hidden" value='@obj.Id' data-DDL='@obj.DDlValue' data-PopupBody='@obj.PopupBody '/>
+                       <a href="#" onclick="FillEdit(@obj.Id); return false;"> @obj.DDlValue</a>
+                    </td>
+                    <td>
+                       <span>@obj.PopupBody</span>
+                    </td>
+                    <td>
+                       <span><a href="#" onclick="Deleterecord(@obj.Id); return false;">Delete</a></span>
+                    </td>
+                </tr>
+               }
+        </table>  
+        </div>
+        <input type="hidden" id="hdd" name="hdd" value="0" />
+    }
+ @*   <script>
+        $('.Editor1').jqte();
+        $('.Editor2').jqte();
+        $('.Editor3').jqte();
+    </script>*@
+        <script type="text/javascript">
+
+            $('#objDigital_DDlValue').val('');
+
+        function FillEdit(obj) {
+            $("#hdd").val(obj);
+            var $ele = $("#tblData tr td input[value=" + obj + "]");
+            if ($ele != null) {
+                $('#objDigital_DDlValue').val($ele.attr("data-DDL"));
+                $('#objDigital_PopupBody').val($ele.attr("data-PopupBody"));
+            }
+
+        }
+    </script>
+    <script type="text/javascript">
+        function Deleterecord(obj) {
+            var status = confirm('Are you sure to delete');
+            if (status) {
+                $.ajax({
+                    type: "post",
+                    url: "/Admin/DeleterDigital",
+                    data: { "id": obj },
+                    success: (function (data) {
+
+                        $("#divDigitalTable").html(data);
+                    }),
+                    fail: (function (data) {
+                    })
+                });
+            }
+        }
+    </script>
+   <script type="text/javascript">
+       function SaveDesignThink() {
+
+          
+           alert("BEFOUR");
+           var DDlval = $('#DDLValue').val();
+           var SecTitle = $('#SectionTitle').val();
+           $("#Content").html($("#SectionBody").val());
+           var dataTemp = $("#SectionBody").val();
+           alert(dataTemp);
+           var temp = JSON.stringify(dataTemp);
+           alert(temp);
+           var Temp1 = JSON.stringify({"DDl": DDlval, "Tilte": SectionTitle,"body": temp });
+
+           $.ajax({
+               type: "post",
+               url: "/Admin/InsertDesignThink",
+               data: Temp1,
+               dataType: 'json',
+               contentType: 'application/json; charset=utf-8',
+               async: true,
+               processData: false,
+               success: (function (data) {
+                   alert(data);
+               }),
+               fail: (function (data) {
+               })
+           });
+       }
+    </script>
+</body>
+</html>
+
+
+

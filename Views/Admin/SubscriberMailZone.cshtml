@@ -1,0 +1,222 @@
+﻿@model FourQuarterMVC.Models.FourQuaterClass
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Four Quarter admin panel</title>
+
+<link type="text/css" rel="stylesheet" href="~/css/demo.css">
+<link type="text/css" rel="stylesheet" href="~/css/jquery-te-1.4.0.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
+<!--    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" /> -->
+    
+     
+     <!-- <script src="~/Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>   -->
+    
+    
+
+    
+@*    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/adapters/jquery.js"></script>*@
+    <link href="~/ckeditor/samples/sample.css" rel="stylesheet">
+    <link href="~/css/visiter.css" type="text/css" rel="stylesheet">
+    <style>
+         #result
+{
+	font-size: 24px;
+	color:maroon;
+}
+        #editable
+        {
+            padding: 10px;
+            float: left;
+        }
+        th {
+    background-color: green;
+    color: white;
+}
+         TextArea
+        {
+            width: 1000px;
+            height: 100px;
+        }
+    </style>
+
+</head>
+<body>
+    <h2>Welcome to the Mail Zone Section</h2>
+    @using (Html.BeginForm("SubscriberMailZone", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    { 
+        <div class="Menuu">
+        <ul>
+            <li><a href="@Href("~/Admin/Home")">Home</a></li>
+            <li><a href="~/Admin/InsertDesignThink">Design & Think</a></li>
+            <li><a href="~/Admin/FilePrintImages">Film & Images</a></li>
+            <li><a href="~/Admin/DDDigital">Digital</a></li>
+            <li><a href="~/Admin/SpeakMaster">Speak & Contact</a></li>
+            <li><a href="~/Admin/CleintMaster">Client Master</a></li>
+            <li><a href="~/Admin/ThinkerBody">Thinker Body</a></li>
+            <li><a href="~/Admin/SubscriberMailZone">MailZone</a></li>
+        </ul>
+    </div>
+       <br /><br />
+        <table width="100%" border="1">
+            <tr>
+                <td width="200">To:-</td>
+                <td>@Html.TextBoxFor(M=>M.objMaster.MailTO, new { @maxlength="150", @style="width:600px;" })</td>
+            </tr>
+            <tr>
+                <td width="200">CC:-</td>
+                <td>@Html.TextBoxFor(M=>M.objMaster.CC, new { @maxlength="1500", @style="width:600px;" })</td>
+            </tr>
+            <tr>
+                <td width="200">Subject:-</td>
+                <td>@Html.TextBoxFor(M=>M.objMaster.MailSubject, new { @maxlength="300", @style="width:600px;" })</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">Write Mail Body1</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">@Html.TextAreaFor(M => M.objMaster.MailBody1, new { @class = "upload3" , @maxlength="1500" })
+                    <br />
+                    <img src="~/img/Message1.png" border="0" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">Write Mail Body2</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">@Html.TextAreaFor(M => M.objMaster.MailBody2, new { @class = "upload3" , @maxlength="1500" })
+                    <br />
+                    <img src="~/img/Message1.png" border="0" />
+                </td>
+            </tr>
+            <tr>
+                <td width="200">From:-</td>
+                <td>@Html.TextBoxFor(M=>M.objMaster.MailFrom,new { @maxlength="300", @style="width:600px;" })</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input id="Submit1" type="submit" value="Update Mail Section" /><label id="result">@ViewBag.Message</label>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <div id="divSubscribertable">
+        <table width="100%" id="tblData" border="1">
+            <tr>
+                <th>S.NO.</th>
+                <th>Email Id</th>
+                <th>Subscription Date</th>
+                <th>Action</th>
+            </tr>
+               @foreach (FourQuarterMVC.Models.Subscribers obj in Model.objListSubscriber)
+               {
+                <tr>
+                    <td>
+                        <input type="hidden" value='@obj.Id' data-id='@obj.Emailid' />
+                       <a href="#" onclick="FillEdit(@obj.Id); return false;"> Update</a>
+                    </td>
+                    <td>
+                       <span>@Html.Raw(obj.Emailid)</span>
+                    </td>
+                    <td>
+                       <span>@Html.Raw(obj.Date)</span>
+                    </td>
+                    <td>
+                       <span><a href="#" onclick="Deleterecord(@obj.Id); return false;">Delete</a></span>
+                    </td>
+                </tr>
+               }
+        </table> </div>
+        <input type="hidden" id="hdd" name="hdd" value="0" />
+    }
+    <script type="text/javascript">
+
+  //      $(window).load(
+  //    function () {
+  //        alert("Hello load");
+  //        var $ele = $("#HometblData tr td input[value]");
+  //        if ($ele != null) {
+  //            $('#objMaster_ThinkingTitle').val($ele.attr("data-ThinkingTitle"));
+  //            $('#objMaster_ChiefThinkTitle1').val($ele.attr("data-ChiefThinkTitle1"));
+  //            $('#objMaster_ChiefThinkBody1').val($ele.attr("data-ChiefThinkBody1"));
+  //            $('#objMaster_ChiefThinkTitle2').val($ele.attr("data-ChiefThinkTitle2"));
+  //            $('#objMaster_ChiefThinkBody2').val($ele.attr("data-ChiefThinkBody2"));
+  //        }
+  //    }
+  //);
+   </script>
+    <script type="text/javascript">
+        $('.upload3').jqte();
+    </script>
+   <script type="text/javascript">
+        function FillEdit(obj) {
+            alert(obj);
+            $("#hdd").val(obj);
+            var $ele = $("#tblData tr td input[value=" + obj + "]");
+            if ($ele != null) {
+                $('#objThinker_ThinkerBody').val($ele.attr("data-body"));
+            }
+
+        }
+    </script>
+     <script type="text/javascript">
+         function Deleterecord(obj) {
+             var status = confirm('Are you sure to delete');
+             if (status) {
+                 $.ajax({
+                     type: "post",
+                     url: "/Admin/DeleterSubscriber",
+                     data: { "id": obj },
+                     success: (function (data) {
+
+                         $("#divSubscribertable").html(data);
+                     }),
+                     fail: (function (data) {
+                     })
+                 });
+             }
+         }
+    </script>
+    <script type="text/javascript">
+        function SaveDesignThink() {
+            alert("BEFOUR");
+            var DDlval = $('#DDLValue').val();
+            var SecTitle = $('#SectionTitle').val();
+            $("#Content").html($("#SectionBody").val());
+            var dataTemp = $("#SectionBody").val();
+            alert(dataTemp);
+            var temp = JSON.stringify(dataTemp);
+
+            $.ajax({
+                type: "post",
+                url: "/Admin/InsertDesignThink",
+                data: JSON.stringify({ "DDl": DDlval, "Tilte": SecTitle, "body": temp }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                processData: false,
+                success: (function (data) {
+                    alert(data);
+                }),
+                fail: (function (data) {
+                })
+            });
+        }
+    </script>
+</body>
+</html>
+
+
